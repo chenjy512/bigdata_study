@@ -177,7 +177,7 @@ public class HbaseOperatorCURD {
         //2. 获取表操作对象
         Table table = HbaseConnectUitl.getConnect().getTable(TableName.valueOf(tableName));
         //3. 封装参数
-        List<Put> puts = new ArrayList<>(cf.length());
+        List<Put> puts = new ArrayList<Put>(cf.length());
         //多列数据封装
         for (int i = 0;i < cn.length;i++){
             Put put = new Put(Bytes.toBytes(rowKey));
@@ -265,7 +265,7 @@ public class HbaseOperatorCURD {
 //
 //        bathPutRowDatas("stu",datas);
 //        getRowData("stu","1001","info","sex");
-        scanRowDatas("stu");
+        scanRowDatas("student");
         HbaseConnectUitl.close();
     }
 
