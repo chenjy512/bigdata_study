@@ -277,7 +277,7 @@ public class HbaseOperatorCURD {
 
 
     /**
-     * 数据移除
+     * 数据移除操作
      * @param tableName 表名
      * @param rowKey key
      * @param cf 列族
@@ -342,7 +342,8 @@ public class HbaseOperatorCURD {
 //
 //        bathPutRowDatas("stu",datas);
 //        getRowData("stu","1001","info","sex");
-        scanRowDatas("stu");
+//        scanRowDatas("stu");
+        scanRowDatas("stu","1002","1005");
 //        deleteData("stu","1003","info","name");
         HbaseConnectUitl.close();
     }

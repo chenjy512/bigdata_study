@@ -1,4 +1,4 @@
-package com.cjy.mrtest;
+package com.cjy.mrtest2;
 
 import java.io.IOException;
 import org.apache.hadoop.io.LongWritable;
