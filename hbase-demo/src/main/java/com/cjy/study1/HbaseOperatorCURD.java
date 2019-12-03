@@ -229,10 +229,30 @@ public class HbaseOperatorCURD {
         return map;
     }
 
-    public static void scanRowDatas(String tableName) throws IOException {
+    /**
+     * scan 查询数据
+     * @param tableName
+     * @param start 开始key
+     * @param stop  结束key
+     * @throws IOException
+     */
+    public static void scanRowDatas(String tableName,String start,String stop) throws IOException {
+        //1. 判断并处理参数
+
+        //2. 获取表对象
         Table table = HbaseConnectUitl.getConnect().getTable(TableName.valueOf(tableName));
+        //3. 创建查询对象，设置查询条件
         Scan scan = new Scan();
+        //设置查询范围
+        if(!StringUtils.isEmpty(start)){
+            scan.setStartRow(Bytes.toBytes(start));
+        }
+        if(!StringUtils.isEmpty(stop)){
+            scan.setStopRow(Bytes.toBytes(stop));
+        }
+        //4. 查询数据
         ResultScanner scanner = table.getScanner(scan);
+        //5. 遍历数据
         Iterator<Result> iterator = scanner.iterator();
         while(iterator.hasNext()){
             Result result = iterator.next();
@@ -244,6 +264,60 @@ public class HbaseOperatorCURD {
             }
         }
         table.close();
+    }
+
+    /**
+     * 数据移除
+     * @param tableName 表名
+     * @param rowKey key
+     * @param cf 列族
+     * @param cn 列
+     * @throws IOException
+     */
+    public static void deleteData(String tableName,String rowKey,String cf,String cn) throws IOException {
+        Table table = HbaseConnectUitl.getConnect().getTable(TableName.valueOf(tableName));
+        //1. 按照key删除，任何列族、任何版本、任何列--移除
+        Delete delete = new Delete(Bytes.toBytes(rowKey));
+//        delete.addColumn(Bytes.toBytes(cf),Bytes.toBytes(cn));  不加s的函数只删除一个版本，会造成删除新版本数据，查询出旧版本数据--慎用
+        //2. 按照key跟列族移除数据，任何版本的此列族数据
+        if(!StringUtils.isEmpty(cf) && StringUtils.isEmpty(cn)){
+            delete.addFamily(Bytes.toBytes(cf));
+        }
+        //3. 按照key、列族、列来移除数据，任何版本
+        if(!StringUtils.isEmpty(cf) && !StringUtils.isEmpty(cn)){
+            delete.addColumns(Bytes.toBytes(cf),Bytes.toBytes(cn));
+        }
+        table.delete(delete);
+        table.close();
+    }
+
+    /**
+     * 按照key移除数据
+     * @param tableName
+     * @param rowKey
+     * @throws IOException
+     */
+    public static void deleteData(String tableName,String rowKey) throws IOException {
+        deleteData(tableName,rowKey,null,null);
+    }
+
+    /**
+     * 按照key与列族移除数据
+     * @param tableName
+     * @param rowKey
+     * @param cf
+     * @throws IOException
+     */
+    public static void deleteData(String tableName,String rowKey,String cf) throws IOException {
+        deleteData(tableName,rowKey,cf,null);
+    }
+    /**
+     * 全表数据扫描
+     * @param tableName 表名称
+     * @throws IOException
+     */
+    public static void scanRowDatas(String tableName) throws IOException {
+        scanRowDatas(tableName,null,null);
     }
 
     public static void main(String[] args) throws IOException, IllegalAccessException {
@@ -266,6 +340,7 @@ public class HbaseOperatorCURD {
 //        bathPutRowDatas("stu",datas);
 //        getRowData("stu","1001","info","sex");
         scanRowDatas("stu");
+        deleteData("stu","1003","info","name");
         HbaseConnectUitl.close();
     }
 
