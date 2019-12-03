@@ -1,1 +1,17 @@
 微博小功能编写：
+
+微博内容表：content
+
+id：uid_ts
+info: cf
+
+微博用户关联表
+id: uid
+info:
+    fs: fs_uid
+    mx: mx_uid
+
+收件箱：
+uid:uid
+info: mx_id--uid_ts
+

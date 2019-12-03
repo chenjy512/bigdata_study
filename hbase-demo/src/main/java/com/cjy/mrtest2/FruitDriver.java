@@ -2,6 +2,7 @@ package com.cjy.mrtest2;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -54,6 +55,7 @@ public class FruitDriver
         try
         {   //创建配置
             Configuration configuration = new Configuration();
+//            Configuration entries = HBaseConfiguration.create();   //需要 hbase-site.xml 可在本地运行
             //传入配置运行任务
             int run = ToolRunner.run(configuration, new FruitDriver(), args);
             System.exit(run);
