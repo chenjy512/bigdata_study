@@ -35,7 +35,7 @@ public class TestAPI {
     public static boolean isTableExist(String tableName)
             throws IOException {
         boolean exists = admin.tableExists(TableName.valueOf(tableName));
-
+        admin.close();
         return exists;
     }
 
