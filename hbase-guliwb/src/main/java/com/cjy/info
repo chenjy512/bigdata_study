@@ -5,6 +5,10 @@ util：工具类
 
 
 
+建表
+create 'weibo:content','info'
+create 'weibo:relation','attends','fans'
+create 'weibo:inbox','info'
 
 
 关系表数据
@@ -13,13 +17,12 @@ zhangsan	    wangwu				lisi,wangwu
 lisi		    zhangsan			wangwu
 wangwu		    zhangsan,lisi		zhangsan
 
-put 'weibo:relation','zhangsan','attends:wangwu',''
-put 'weibo:relation','zhangsan','fans:lisi',''
-put 'weibo:relation','zhangsan','fans:wangwu',''
+put 'weibo:relation','zhangsan','attends:wangwu','1';
+put 'weibo:relation','zhangsan','fans:lisi','1';
+put 'weibo:relation','zhangsan','fans:wangwu','1';
 
-put 'weibo:relation','lisi','attends:zhangsan',''
-put 'weibo:relation','lisi','fans:wangwu',''
-
-put 'weibo:relation','wangwu','attends:zhangsan',''
-put 'weibo:relation','wangwu','attends:lisi',''
-put 'weibo:relation','wangwu','fans:zhangsan',''
+put 'weibo:relation','lisi','attends:zhangsan','1';
+put 'weibo:relation','lisi','fans:wangwu','1';
+put 'weibo:relation','wangwu','attends:zhangsan','1';
+put 'weibo:relation','wangwu','attends:lisi','1';
+put 'weibo:relation','wangwu','fans:zhangsan','1';
