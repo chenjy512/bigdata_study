@@ -63,7 +63,7 @@ public class HbaseConnectUitl {
     /**
      * 获取Admin
      */
-    public static Table getTable(String tableName) throws IllegalAccessException {
+/*    public static Table getTable(String tableName) throws IllegalAccessException {
         if (StringUtils.isEmpty(tableName))
             throw new IllegalAccessException("tableName is empty");
         if(table ==null){
@@ -79,7 +79,7 @@ public class HbaseConnectUitl {
             }
         }
         return table;
-    }
+    }*/
     /**
      * 资源关闭
      */

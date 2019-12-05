@@ -231,6 +231,29 @@ public class HbaseOperatorCURD {
     }
 
     /**
+     * 查询某一key的某一列族下所有数据
+     * @param tableName
+     * @param rowKey
+     * @param cf
+     * @throws IOException
+     */
+    public static void getRowData(String tableName,String rowKey,String cf) throws IOException {
+        Table table = HbaseConnectUitl.getConnect().getTable(TableName.valueOf(tableName));
+        //设置查询条件
+        Get get = new Get(Bytes.toBytes(rowKey));
+//        get.addColumn(Bytes.toBytes(cf),Bytes.toBytes(cn));
+        get.addFamily(Bytes.toBytes(cf));
+        Result result = table.get(get);
+        //每行数据的多个列数据数组
+        Cell[] cells = result.rawCells();
+        for (Cell cell : cells) {//每列值遍历
+            System.out.println("CF:" + Bytes.toString(CellUtil.cloneFamily(cell)) + "，CN:" +
+                    Bytes.toString(CellUtil.cloneQualifier(cell)) + "，Value:" +
+                    Bytes.toString(CellUtil.cloneValue(cell)));
+        }
+        table.close();
+    }
+    /**
      * scan 查询数据
      * @param tableName
      * @param start 开始key
@@ -352,7 +375,8 @@ public class HbaseOperatorCURD {
 //
 //        bathPutRowDatas("stu",datas);
 //        getRowData("stu","1001","info","sex");
-        scanRowDatas("weibo:relation");
+        getRowData("weibo:relation","zhangsan","fans");
+//        scanRowDatas("weibo:relation");
 //        scanRowDatas("weibo:","1001","1005");
 //        deleteData("stu","1003","info","name");
         HbaseConnectUitl.close();
