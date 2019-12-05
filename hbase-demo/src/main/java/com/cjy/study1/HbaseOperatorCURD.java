@@ -15,68 +15,6 @@ import java.util.*;
 public class HbaseOperatorCURD {
     //-----------------------------------------------------以下是 DDL 操作
     /**
-     * 1. 判断表是否存在
-     * @param tableName 表名称
-     * @return
-     */
-    public static boolean isTableExist(String tableName) throws IOException, IllegalAccessException {
-        if (StringUtils.isEmpty(tableName))
-            throw new IllegalAccessException("tableName is not null");
-
-        Admin admin = HbaseConnectUitl.getAdmin();
-        //注意TableName是个类
-        boolean res = admin.tableExists(TableName.valueOf(tableName));
-        return res;
-    }
-
-    /**
-     * 2. 创建表
-     * @param tableName 表名称
-     * @param clumnFamilys 列族，多个列族
-     */
-    public static void createTable(String tableName, String... clumnFamilys) throws IllegalAccessException, IOException {
-        //1.参数判断
-        if (StringUtils.isEmpty(tableName))
-            throw new IllegalAccessException("tableName is not null");
-        if (clumnFamilys == null || clumnFamilys.length == 0)
-            throw new IllegalAccessException("clumnFamilys is not null");
-        if(isTableExist(tableName))
-            throw new IllegalAccessException(tableName + " table is exist");
-        //2. 获取admin
-        Admin admin = HbaseConnectUitl.getAdmin();
-        //3. 创建表描述
-        HTableDescriptor hTableDescriptor = new HTableDescriptor(TableName.valueOf(tableName));
-        //4. 封装列族信息
-        for (String clumnFamily : clumnFamilys) {
-            HColumnDescriptor hColumnDescriptor = new HColumnDescriptor(clumnFamily);
-            //添加列族后返回本身对象，因为实际存放列族信息的位置是---> this.families.put(family.getName(), family);
-            hTableDescriptor.addFamily(hColumnDescriptor);
-        }
-        admin.createTable(hTableDescriptor);
-    }
-
-    /**
-     * 3. 删除表
-     * @param tableName 表名称
-     * @throws IllegalAccessException
-     * @throws IOException
-     */
-    public static void dropTable(String tableName) throws IllegalAccessException, IOException {
-        //1.参数判断
-        if (StringUtils.isEmpty(tableName))
-            throw new IllegalAccessException("tableName is not null");
-        if(!isTableExist(tableName))
-            throw new IllegalAccessException(tableName + " table is not exist");
-        //2. 获取admin
-        Admin admin = HbaseConnectUitl.getAdmin();
-        //3. 删除表
-        //3.1 表下线
-        admin.disableTable(TableName.valueOf(tableName));
-        //3.2 表删除
-        admin.deleteTable(TableName.valueOf(tableName));
-    }
-
-    /**
      * 判断命名空间是否存在
      * @param ns 命名空间名称
      * @return
@@ -143,6 +81,69 @@ public class HbaseOperatorCURD {
 //        NamespaceDescriptor build = NamespaceDescriptor.create(ns).build();
         admin.deleteNamespace(ns);
     }
+    /**
+     * 1. 判断表是否存在
+     * @param tableName 表名称
+     * @return
+     */
+    public static boolean isTableExist(String tableName) throws IOException, IllegalAccessException {
+        if (StringUtils.isEmpty(tableName))
+            throw new IllegalAccessException("tableName is not null");
+
+        Admin admin = HbaseConnectUitl.getAdmin();
+        //注意TableName是个类
+        boolean res = admin.tableExists(TableName.valueOf(tableName));
+        return res;
+    }
+
+    /**
+     * 2. 创建表
+     * @param tableName 表名称
+     * @param clumnFamilys 列族，多个列族
+     */
+    public static void createTable(String tableName, String... clumnFamilys) throws IllegalAccessException, IOException {
+        //1.参数判断
+        if (StringUtils.isEmpty(tableName))
+            throw new IllegalAccessException("tableName is not null");
+        if (clumnFamilys == null || clumnFamilys.length == 0)
+            throw new IllegalAccessException("clumnFamilys is not null");
+        if(isTableExist(tableName))
+            throw new IllegalAccessException(tableName + " table is exist");
+        //2. 获取admin
+        Admin admin = HbaseConnectUitl.getAdmin();
+        //3. 创建表描述
+        HTableDescriptor hTableDescriptor = new HTableDescriptor(TableName.valueOf(tableName));
+        //4. 封装列族信息
+        for (String clumnFamily : clumnFamilys) {
+            HColumnDescriptor hColumnDescriptor = new HColumnDescriptor(clumnFamily);
+            //添加列族后返回本身对象，因为实际存放列族信息的位置是---> this.families.put(family.getName(), family);
+            hTableDescriptor.addFamily(hColumnDescriptor);
+        }
+        admin.createTable(hTableDescriptor);
+    }
+
+    /**
+     * 3. 删除表
+     * @param tableName 表名称
+     * @throws IllegalAccessException
+     * @throws IOException
+     */
+    public static void dropTable(String tableName) throws IllegalAccessException, IOException {
+        //1.参数判断
+        if (StringUtils.isEmpty(tableName))
+            throw new IllegalAccessException("tableName is not null");
+        if(!isTableExist(tableName))
+            throw new IllegalAccessException(tableName + " table is not exist");
+        //2. 获取admin
+        Admin admin = HbaseConnectUitl.getAdmin();
+        //3. 删除表
+        //3.1 表下线
+        admin.disableTable(TableName.valueOf(tableName));
+        //3.2 表删除
+        admin.deleteTable(TableName.valueOf(tableName));
+    }
+
+
 
     //-----------------------------------------------------以下是 DML 操作
 
@@ -217,9 +218,9 @@ public class HbaseOperatorCURD {
         Get get = new Get(Bytes.toBytes(rowKey));
         get.addColumn(Bytes.toBytes(cf),Bytes.toBytes(cn));
         Result result = table.get(get);
-        //每行单元格数据数组
+        //每行数据的多个列数据数组
         Cell[] cells = result.rawCells();
-        for (Cell cell : cells) {
+        for (Cell cell : cells) {//每列值遍历
             System.out.println("CF:" + Bytes.toString(CellUtil.cloneFamily(cell)) + "，CN:" +
                     Bytes.toString(CellUtil.cloneQualifier(cell)) + "，Value:" +
                     Bytes.toString(CellUtil.cloneValue(cell)));
@@ -250,17 +251,21 @@ public class HbaseOperatorCURD {
         if(!StringUtils.isEmpty(stop)){
             scan.setStopRow(Bytes.toBytes(stop));
         }
+        scan.setMaxVersions(3); //获取多版本数据
         //4. 查询数据
         ResultScanner scanner = table.getScanner(scan);
         //5. 遍历数据
-        Iterator<Result> iterator = scanner.iterator();
+        Iterator<Result> iterator = scanner.iterator(); //相当于获取多行数据
         while(iterator.hasNext()){
-            Result result = iterator.next();
-            for (Cell cell : result.rawCells()) {
+            Result result = iterator.next(); //获取某一行数据
+            for (Cell cell : result.rawCells()) {  //遍历某行数据的多个列值
+                //取出列值的信息
                 System.out.println("RK:" + Bytes.toString(CellUtil.cloneRow(cell)) + "，CF:" +
                         Bytes.toString(CellUtil.cloneFamily(cell)) + "，CN:" +
                         Bytes.toString(CellUtil.cloneQualifier(cell)) + "，Value:" +
-                        Bytes.toString(CellUtil.cloneValue(cell)));
+                        Bytes.toString(CellUtil.cloneValue(cell))+
+                        "，time:"+ cell.getTimestamp()
+                );
             }
         }
         table.close();
@@ -322,6 +327,11 @@ public class HbaseOperatorCURD {
         deleteData(tableName,rowKey,cf,null);
     }
 
+    /**
+     *scan 与 get 的区别
+     *      get：根据可以查询某一行的多列数据
+     *      scan：根据范围查询多行的多列数据
+     */
 
     public static void main(String[] args) throws IOException, IllegalAccessException {
 //        System.out.println(isTableExist("stu2"));
@@ -342,8 +352,8 @@ public class HbaseOperatorCURD {
 //
 //        bathPutRowDatas("stu",datas);
 //        getRowData("stu","1001","info","sex");
-//        scanRowDatas("stu");
-        scanRowDatas("stu","1002","1005");
+        scanRowDatas("weibo:relation");
+//        scanRowDatas("weibo:","1001","1005");
 //        deleteData("stu","1003","info","name");
         HbaseConnectUitl.close();
     }
