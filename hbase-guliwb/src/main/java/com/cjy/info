@@ -1,0 +1,25 @@
+bean:实体类
+constans：静态定义
+dao：数据操作
+util：工具类
+
+
+
+
+
+关系表数据
+rowkey			attends				fans
+zhangsan	    wangwu				lisi,wangwu
+lisi		    zhangsan			wangwu
+wangwu		    zhangsan,lisi		zhangsan
+
+put 'weibo:relation','zhangsan','attends:wangwu',''
+put 'weibo:relation','zhangsan','fans:lisi',''
+put 'weibo:relation','zhangsan','fans:wangwu',''
+
+put 'weibo:relation','lisi','attends:zhangsan',''
+put 'weibo:relation','lisi','fans:wangwu',''
+
+put 'weibo:relation','wangwu','attends:zhangsan',''
+put 'weibo:relation','wangwu','attends:lisi',''
+put 'weibo:relation','wangwu','fans:zhangsan',''

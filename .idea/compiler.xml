@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="hbase-demo" />
+        <module name="hbase-guliwb" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="hbase-demo" target="1.5" />
+      <module name="hbase-demo" target="1.7" />
+      <module name="hbase-guliwb" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,8 +1,8 @@
-package com.cjy.study1;
+package com.cjy.util;
 
+import com.cjy.constans.Constans;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
@@ -100,4 +100,81 @@ public class HbaseConnectUitl {
         }
     }
 
+    /**
+     * 判断命名空间是否存在
+     * @param ns 命名空间名称
+     * @return
+     * @throws IllegalAccessException
+     */
+    public static boolean isNameSpaceExist(String ns) throws IllegalAccessException {
+        //1.参数判断
+        if (StringUtils.isEmpty(ns))
+            throw new IllegalAccessException("ns is not exist");
+        //2. 获取admin
+        Admin admin = HbaseConnectUitl.getAdmin();
+        boolean exist = true;
+        try {
+            NamespaceDescriptor namespaceDescriptor = admin.getNamespaceDescriptor(ns);
+//            String name = namespaceDescriptor.getName();
+//            System.out.println(name);
+        }catch (NamespaceNotFoundException e){
+//            System.out.println("NamespaceNotFoundException");
+            exist = false;
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        return exist ;
+    }
+    /**
+     * 创建命名空间
+     * @param ns 命名空间名称
+     * @throws IllegalAccessException
+     * @throws IOException
+     */
+    public static void createNameSpace(String ns) throws IllegalAccessException, IOException {
+        //1.参数判断
+        if (StringUtils.isEmpty(ns))
+            throw new IllegalAccessException("ns is not null");
+        if (isNameSpaceExist(ns))
+            throw new IllegalAccessException(ns+" NameSpace is  exist");
+
+        //2. 获取admin
+        Admin admin = HbaseConnectUitl.getAdmin();
+        //3. 创建表空间
+        NamespaceDescriptor build = NamespaceDescriptor.create(ns).build();
+        try {
+            admin.createNamespace(build);
+        } catch (NamespaceExistException e) {
+            System.out.println(ns+" 命名空间存在");
+        }
+    }
+
+    /**
+     * 删除命名空间
+     * @param ns 命名空间名称
+     * @throws IllegalAccessException
+     * @throws IOException
+     */
+    public static void dropNameSpace(String ns) throws IllegalAccessException, IOException {
+        //1.参数判断
+        if (StringUtils.isEmpty(ns))
+            throw new IllegalAccessException("ns is not null");
+        if (!isNameSpaceExist(ns))
+            throw new IllegalAccessException(ns+" NameSpace is not exist");
+
+        //2. 获取admin
+        Admin admin = HbaseConnectUitl.getAdmin();
+//        NamespaceDescriptor build = NamespaceDescriptor.create(ns).build();
+        admin.deleteNamespace(ns);
+    }
+
+    public static void main(String[] args) throws IOException, IllegalAccessException {
+        //测试
+//        Connection connect = getConnect();
+//        System.out.println(connect);
+
+//        createNameSpace(Constans.NAMA_SPACE);
+//        close();
+
+    }
 }

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/bigdata_study.iml" filepath="$PROJECT_DIR$/.idea/bigdata_study.iml" />
       <module fileurl="file://$PROJECT_DIR$/hbase-demo/hbase-demo.iml" filepath="$PROJECT_DIR$/hbase-demo/hbase-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hbase-guliwb/hbase-guliwb.iml" filepath="$PROJECT_DIR$/hbase-guliwb/hbase-guliwb.iml" />
     </modules>
   </component>
 </project>
