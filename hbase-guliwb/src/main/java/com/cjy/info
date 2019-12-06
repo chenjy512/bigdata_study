@@ -26,3 +26,7 @@ put 'weibo:relation','lisi','fans:wangwu','1';
 put 'weibo:relation','wangwu','attends:zhangsan','1';
 put 'weibo:relation','wangwu','attends:lisi','1';
 put 'weibo:relation','wangwu','fans:zhangsan','1';
+
+
+
+https://www.cnblogs.com/wind-june/p/9699121.html

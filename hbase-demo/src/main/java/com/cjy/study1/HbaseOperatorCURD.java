@@ -242,6 +242,7 @@ public class HbaseOperatorCURD {
         //设置查询条件
         Get get = new Get(Bytes.toBytes(rowKey));
 //        get.addColumn(Bytes.toBytes(cf),Bytes.toBytes(cn));
+        get.setMaxVersions(3);
         get.addFamily(Bytes.toBytes(cf));
         Result result = table.get(get);
         //每行数据的多个列数据数组
@@ -375,7 +376,7 @@ public class HbaseOperatorCURD {
 //
 //        bathPutRowDatas("stu",datas);
 //        getRowData("stu","1001","info","sex");
-        getRowData("weibo:relation","zhangsan","fans");
+        getRowData("weibo:inbox","wangwu","info");
 //        scanRowDatas("weibo:relation");
 //        scanRowDatas("weibo:","1001","1005");
 //        deleteData("stu","1003","info","name");
