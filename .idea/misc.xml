@@ -5,6 +5,8 @@
       <list>
         <option value="$PROJECT_DIR$/hbase-demo/pom.xml" />
         <option value="$PROJECT_DIR$/hbase-guliwb/pom.xml" />
+        <option value="$PROJECT_DIR$/calltel-project/pom.xml" />
+        <option value="$PROJECT_DIR$/calltel-project/ct-common/pom.xml" />
       </list>
     </option>
   </component>

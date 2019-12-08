@@ -6,13 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="ct-common" />
+        <module name="ct-producer" />
         <module name="hbase-demo" />
         <module name="hbase-guliwb" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="hbase-demo" target="1.7" />
-      <module name="hbase-guliwb" target="1.7" />
+      <module name="calltel-project" target="1.8" />
+      <module name="ct-common" target="1.8" />
+      <module name="ct-producer" target="1.8" />
+      <module name="hbase-demo" target="1.8" />
+      <module name="hbase-guliwb" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
