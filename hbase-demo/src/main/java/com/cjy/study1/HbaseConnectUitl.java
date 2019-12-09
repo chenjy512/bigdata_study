@@ -33,8 +33,9 @@ public class HbaseConnectUitl {
                 if (connection == null) {
                     Configuration configuration = HBaseConfiguration.create();
                     //设置zk集群位置
-                    configuration.set("hbase.zookeeper.quorum", "hadoop101,hadoop102,hadoop103");
-//                    configuration.set("hbase.zookeeper.quorum", "hadoop202,hadoop203,hadoop204");
+//                    configuration.set("hbase.zookeeper.quorum", "hadoop101,hadoop102,hadoop103");
+                    //添加配置文件的话就不用再显示指定了 hbase-default.xml
+                    configuration.set("hbase.zookeeper.quorum", "hadoop202,hadoop203,hadoop204");
                     connection = ConnectionFactory.createConnection(configuration);
                 }
             }
