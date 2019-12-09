@@ -11,6 +11,7 @@ public enum Names {
     ,CF_CALLEE("callee")
     ,CF_INFO("info")
     ,TABLE("ct:calllog");
+
    private String value;
     /**
      * 构造函数

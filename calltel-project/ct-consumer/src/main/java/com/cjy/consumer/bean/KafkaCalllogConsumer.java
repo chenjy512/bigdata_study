@@ -1,5 +1,6 @@
 package com.cjy.consumer.bean;
 
+import com.cjy.consumer.dao.HbaseDao;
 import com.cjy.ct.bean.Consumer;
 import com.cjy.ct.bean.Data;
 import com.cjy.ct.constant.Names;
@@ -26,6 +27,9 @@ public class KafkaCalllogConsumer implements Consumer{
             //设置消费主题
             kafkaConsumer.subscribe(Arrays.asList(Names.TOPIC.getValue()));
 
+            HbaseDao dao = new HbaseDao();
+            //初始化表空间与表
+            dao.init();
             while (true){
                 //一次拿去多条数据
                 ConsumerRecords<String, String> poll = kafkaConsumer.poll(100);
@@ -33,9 +37,12 @@ public class KafkaCalllogConsumer implements Consumer{
                 while (iterator.hasNext()){
                     ConsumerRecord<String, String> next = iterator.next();
                     System.out.println(next.value());
+                    //插入数据
+//                    dao.insertData(next.value());
+                    dao.insertData(new Calllog(next.value()));
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -1,11 +1,18 @@
 package com.cjy.ct.bean;
 
+import com.cjy.ct.api.Column;
+import com.cjy.ct.api.RowKey;
+import com.cjy.ct.api.TableRef;
 import com.cjy.ct.constant.Names;
+import com.cjy.ct.constant.ValConstant;
+import com.cjy.ct.util.StringUtil;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -102,8 +109,9 @@ public abstract class BaseDao {
 
     /**
      * 创建表，之前存在则删除
-     * @param tableName
-     * @param families
+     * @param tableName 表名
+     * @param families 列族
+     * @param regionCount 分区数
      * @throws IOException
      */
     protected void createTalbeXX(String tableName,Integer regionCount,String...families) throws IOException {
@@ -128,24 +136,55 @@ public abstract class BaseDao {
         if(regionCount == null || regionCount ==0){
             admin.createTable(hTableDescriptor);
         }else{
-
+            byte[][] region = genSplitKeys(regionCount);
+            admin.createTable(hTableDescriptor,region);
         }
 
     }
 
+    protected void createTalbeXX(String tableName,String...families) throws IOException {
+
+            createTalbeXX(tableName,null,families);
+    }
     /**
-     * 生成分区主键
+     * 生成分区号
      * @param count 分区个数
      * @return
      */
-    private byte[][] genSplitKeys(Integer count){
-        //分区个数-1 个主键
+    private  byte[][] genSplitKeys(Integer count){
+        //假设6个分区
+        /**
+         * -,0|
+         * 0|,1|
+         * 1|,2|
+         * 2|,3|
+         * 3|,4|
+         * 4|,+
+         */
         int keyCount = count - 1;
         byte[][] bs = new byte[keyCount][];
         for (int i = 0;i < keyCount;i++){
-
+            String part = i+"|";
+//            System.out.println(part);
+            bs[i] = Bytes.toBytes(part);
         }
         return bs;
+    }
+
+    /**
+     * 计算分区号
+     * @param tel 电话号码
+     * @param date 日期
+     * @return 分区号  0,1,2,3,4,5
+     */
+    protected  Integer getRegionNum(String tel,String date){
+            tel = tel.substring(tel.length()-5);
+            date = date.substring(0,6); //截取到月份 20180303122343 -> 201803
+            int th = tel.hashCode();
+            int dh = date.hashCode();
+            int num = Math.abs(th^dh);
+            int regionNum = num % ValConstant.REGION_COUNT;
+            return regionNum;
     }
 
     /**
@@ -176,6 +215,60 @@ public abstract class BaseDao {
     }
 
     /**
+     * put对象，使用注解方式
+     * @param obj
+     */
+    protected void putData(Object obj) throws IllegalAccessException, IOException {
+        //反射使用，获取类实例
+        Class<?> cls = obj.getClass();
+        //获取表注解
+        TableRef tableRef = cls.getAnnotation(TableRef.class);
+        //获取注解值
+        String tableName = tableRef.value();
+        //获取所有属性对象
+        Field[] fields = cls.getDeclaredFields();
+        String rowKeyValue = "";
+        for (Field field : fields) {
+            RowKey rowKeyAnno = field.getAnnotation(RowKey.class);
+            if(rowKeyAnno != null){
+                //属性由于是私有的所以需要权限
+                    field.setAccessible(true);
+                    //获取属性值
+                rowKeyValue = (String)field.get(obj);
+                break;
+                }
+        }
+
+        //获取连接
+        Connection conn = getConn();
+        TableName tableName1 = TableName.valueOf(tableName);
+        Table table = conn.getTable(tableName1);
+        Put put = new Put(Bytes.toBytes(rowKeyValue));
+
+        for (Field field : fields) {
+            //判断此数据是否为column注解标注
+            Column column = field.getAnnotation(Column.class);
+            if(column != null){
+                //是，则取其列族
+                String family = column.family();
+                //取列名，判断为空则使用属性名
+                String cn = column.column();
+                if(StringUtil.isEmpty(cn)){
+                    //获取属性名
+                    cn = field.getName();
+                }
+                //获取值
+                field.setAccessible(true);
+                String value = (String) field.get(obj);
+                put.addColumn(Bytes.toBytes(family),Bytes.toBytes(cn),Bytes.toBytes(value));
+            }
+        }
+
+        table.put(put);
+        table.close();
+    }
+
+    /**
      * 插入多条数据
      * @param tableName
      * @param puts
@@ -188,6 +281,11 @@ public abstract class BaseDao {
     }
 
     public static void main(String[] args) {
+//        byte[][] bytes = genSplitKeys(5);
 
+        /*System.out.println(getRegionNum("18411925860","20180415213918"));
+        System.out.println(getRegionNum("18944239644","20181111060747"));
+        System.out.println(getRegionNum("15133295266","20180331021611"));
+        System.out.println(getRegionNum("19920868202","20180806042914"));*/
     }
 }
