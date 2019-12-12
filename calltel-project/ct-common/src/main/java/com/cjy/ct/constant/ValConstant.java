@@ -11,4 +11,11 @@ public class ValConstant {
 
     public static final String FAMILY_CF1="caller";
     public static final String FAMILY_CF2="callee";
+
+    /**
+     * 主叫、被叫标志
+     */
+    public static final String NUM_ZJ="0";
+    public static final String NUM_BJ="1";
+
 }

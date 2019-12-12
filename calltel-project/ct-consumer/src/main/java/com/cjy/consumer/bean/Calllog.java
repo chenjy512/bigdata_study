@@ -6,6 +6,9 @@ import com.cjy.ct.api.TableRef;
 import com.cjy.ct.constant.Names;
 import com.cjy.ct.constant.ValConstant;
 
+/**
+ * hbase中插入数据--封装对象
+ */
 //注意注解中不能使用枚举
 //@TableRef(value = Names.TABLE.getValue())
 @TableRef(value = ValConstant.TABLE_NAME)
@@ -22,6 +25,9 @@ public class Calllog {
     private String calltime;
     @Column(family = ValConstant.FAMILY_CF1)
     private String duration;
+    @Column(family = ValConstant.FAMILY_CF1)
+    private String flag=ValConstant.NUM_ZJ;
+
 
 
     public Calllog(String data ) {
@@ -70,5 +76,13 @@ public class Calllog {
 
     public void setDuration(String duration) {
         this.duration = duration;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }

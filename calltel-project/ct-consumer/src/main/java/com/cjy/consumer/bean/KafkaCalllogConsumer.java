@@ -38,8 +38,13 @@ public class KafkaCalllogConsumer implements Consumer{
                     ConsumerRecord<String, String> next = iterator.next();
                     System.out.println(next.value());
                     //插入数据
+                    //1.插入单行字符串
 //                    dao.insertData(next.value());
+                    //2.插入主被叫数据
+//                    dao.insertDataZB(next.value());
+                    //3.插入单行对象数据
                     dao.insertData(new Calllog(next.value()));
+
                 }
             }
         } catch (Exception e) {

@@ -112,9 +112,10 @@ public abstract class BaseDao {
      * @param tableName 表名
      * @param families 列族
      * @param regionCount 分区数
+     * @param coprocessorClassName 协处理器全类名
      * @throws IOException
      */
-    protected void createTalbeXX(String tableName,Integer regionCount,String...families) throws IOException {
+    protected void createTalbeXX(String tableName,String coprocessorClassName,Integer regionCount,String...families) throws IOException {
         Admin admin = getAdmin();
         //判断
         if(admin.tableExists(TableName.valueOf(tableName))){
@@ -132,7 +133,15 @@ public abstract class BaseDao {
             HColumnDescriptor hColumnDescriptor = new HColumnDescriptor(family);
             hTableDescriptor.addFamily(hColumnDescriptor);
         }
-        //创建表
+
+        /**
+         * 协处理器关联
+         */
+        if(coprocessorClassName != null && !"".equals(coprocessorClassName)){
+            hTableDescriptor.addCoprocessor(coprocessorClassName);
+        }
+
+        //创建表，判断是否有分区设置
         if(regionCount == null || regionCount ==0){
             admin.createTable(hTableDescriptor);
         }else{
@@ -144,7 +153,7 @@ public abstract class BaseDao {
 
     protected void createTalbeXX(String tableName,String...families) throws IOException {
 
-            createTalbeXX(tableName,null,families);
+            createTalbeXX(tableName,null,null,families);
     }
     /**
      * 生成分区号
