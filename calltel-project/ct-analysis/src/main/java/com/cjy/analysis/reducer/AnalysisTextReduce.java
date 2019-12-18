@@ -20,7 +20,7 @@ public class AnalysisTextReduce extends Reducer<Text,Text,Text,Text>{
             sum += duration;
             count++;
         }
-        System.out.println(key.toString()+"\t"+count+"\t"+sum);
+//        System.out.println(key.toString()+"\t"+count+"\t"+sum);
         context.write(key,new Text(count+"_"+sum));
     }
 }

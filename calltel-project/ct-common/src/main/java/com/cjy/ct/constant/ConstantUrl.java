@@ -7,12 +7,16 @@ public class ConstantUrl {
 
     private volatile Properties prop = null;
 
+
+    private static JdbcUrl urlVo = new JdbcUrl();
+
     public static String getProperty(String key){
 
-        return prop.getProperty(key);
+        return urlVo.getProperty(key);
     }
 
-    private class JdbcUrl{
+
+    private static class JdbcUrl{
         private volatile Properties prop = null;
         public JdbcUrl(){
             prop = new Properties();
@@ -25,6 +29,10 @@ public class ConstantUrl {
         public String getProperty(String key){
             return prop.getProperty(key);
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(ConstantUrl.getProperty("jdbc.url"));
     }
 }
 

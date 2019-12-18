@@ -15,7 +15,7 @@ public class AnalysisTextMap extends TableMapper<Text,Text> {
 //      5_16480981069_20180830214723_18749966182_0682_0   解析数据
         //1. 拆分数据
         String s = Bytes.toString(key.get());
-        System.out.println("map:"+s);
+//        System.out.println("map:"+s);
         String[] values = s.split("_");
 
         String call1 = values[1];
