@@ -1,6 +1,7 @@
 package com.cjy.analysis.tool;
 
 import com.cjy.analysis.map.AnalysisTextMap;
+import com.cjy.analysis.outformat.MysqlRedisCacheOutputFormat;
 import com.cjy.analysis.outformat.MysqlTextOutputFormat;
 import com.cjy.analysis.reducer.AnalysisTextReduce;
 import com.cjy.ct.constant.Names;
@@ -38,7 +39,8 @@ public class AnalysisTextTool implements Tool {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
         //写入到mysql 中
-        job.setOutputFormatClass(MysqlTextOutputFormat.class);
+//        job.setOutputFormatClass(MysqlTextOutputFormat.class);
+        job.setOutputFormatClass(MysqlRedisCacheOutputFormat.class);
 
         //输出到本地，或hdfs都可以
 //        FileOutputFormat.setOutputPath(job, new Path("D:/out"));

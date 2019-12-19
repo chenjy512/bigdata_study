@@ -11,6 +11,7 @@
         <module name="ct-consumer" />
         <module name="ct-consumer-coprocessor" />
         <module name="ct-producer" />
+        <module name="ct-redis-cache" />
         <module name="ctconsumer" />
         <module name="hbase-demo" />
         <module name="hbase-guliwb" />
@@ -23,6 +24,7 @@
       <module name="ct-consumer" target="1.8" />
       <module name="ct-consumer-coprocessor" target="1.8" />
       <module name="ct-producer" target="1.8" />
+      <module name="ct-redis-cache" target="1.8" />
       <module name="ctconsumer" target="1.7" />
       <module name="hbase-demo" target="1.8" />
       <module name="hbase-guliwb" target="1.8" />

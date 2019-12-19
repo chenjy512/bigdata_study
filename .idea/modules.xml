@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/calltel-project/ct-consumer/ct-consumer.iml" filepath="$PROJECT_DIR$/calltel-project/ct-consumer/ct-consumer.iml" />
       <module fileurl="file://$PROJECT_DIR$/calltel-project/ct-consumer-coprocessor/ct-consumer-coprocessor.iml" filepath="$PROJECT_DIR$/calltel-project/ct-consumer-coprocessor/ct-consumer-coprocessor.iml" />
       <module fileurl="file://$PROJECT_DIR$/calltel-project/ct-producer/ct-producer.iml" filepath="$PROJECT_DIR$/calltel-project/ct-producer/ct-producer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/calltel-project/ct-redis-cache/ct-redis-cache.iml" filepath="$PROJECT_DIR$/calltel-project/ct-redis-cache/ct-redis-cache.iml" />
       <module fileurl="file://$PROJECT_DIR$/hbase-demo/hbase-demo.iml" filepath="$PROJECT_DIR$/hbase-demo/hbase-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/hbase-guliwb/hbase-guliwb.iml" filepath="$PROJECT_DIR$/hbase-guliwb/hbase-guliwb.iml" />
     </modules>

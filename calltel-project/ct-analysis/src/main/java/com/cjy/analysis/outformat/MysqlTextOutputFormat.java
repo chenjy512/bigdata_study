@@ -15,6 +15,15 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 输出格式：用于自定义输出到mysql中为例
+ *
+ * 1。继承OutputFormat ，定义key，value类型，实现其方法
+ * 2。定义内部类继承 RecordWriter，主要有其来决定数据输出位置
+ * 3。初始化辅助数据，实现write函数，主要就是由此函数决定数据输出位置
+ * 4。将封装的内部类对象返回给getRecordWriter 函数
+ * 5。提交对象封装
+ */
 public class MysqlTextOutputFormat extends OutputFormat<Text,Text>{
 
 
@@ -145,6 +154,7 @@ public class MysqlTextOutputFormat extends OutputFormat<Text,Text>{
             }
         }
     }
+    //返回自定义 RecordWriter 类型对象，此对象来完成数据输出位置的操作
     @Override
     public RecordWriter getRecordWriter(TaskAttemptContext taskAttemptContext) throws IOException, InterruptedException {
         return new MysqlRecordWrite();
@@ -156,9 +166,10 @@ public class MysqlTextOutputFormat extends OutputFormat<Text,Text>{
     }
 
 
-
+    //定义输出提交对象
     private FileOutputCommitter committer = null;
 
+    //获取路径
     private Path getPath(JobContext job){
         String name = job.getConfiguration().get(FileOutputFormat.OUTDIR);
         return name == null ?null : new Path(name);
