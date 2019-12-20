@@ -17,6 +17,7 @@ import java.sql.SQLException;
 
 public class MysqlRedisCacheOutputFormat extends OutputFormat<Text, Text> {
 
+
     private class MysqlRedisRecordWriter extends RecordWriter<Text,Text>{
 
         private Jedis jedis = null;
@@ -37,10 +38,11 @@ public class MysqlRedisCacheOutputFormat extends OutputFormat<Text, Text> {
          */
         @Override
         public void write(Text key, Text val) throws IOException, InterruptedException {
-            String keyStr = Bytes.toString(key.getBytes());
+            //15133295266_201802 --> 15133295266_20180231
+//            String keyStr = Bytes.toString(key.getBytes());
             String valStr = Bytes.toString(val.getBytes());
-
-            String[] s1 = keyStr.split("_");
+            String s = key.toString();
+            String[] s1 = s.split("_");
             String[] s2 = valStr.split("_");
 
             String tel = s1[0];
@@ -57,6 +59,16 @@ public class MysqlRedisCacheOutputFormat extends OutputFormat<Text, Text> {
 
                 String telId = jedis.hget("ct_tel", tel);
                 String dateId = jedis.hget("ct_date", date);
+                if(telId == null){
+                    System.out.println("tel is null :"+tel);
+                }
+                if(dateId == null){
+                    System.out.println("dateId is null :"+date);
+                }
+                if(dateId.equals("20180230")){
+                    System.out.println(s);
+                }
+//                System.out.println("tel:"+tel+" ct_date:"+date);
                 pre.setInt(1, Integer.parseInt(telId));
                 pre.setInt(2, Integer.parseInt(dateId));
                 pre.setInt(3, Integer.parseInt(count));
@@ -117,5 +129,12 @@ public class MysqlRedisCacheOutputFormat extends OutputFormat<Text, Text> {
             committer = new FileOutputCommitter(path,taskAttemptContext);
         }
         return committer;
+    }
+
+    public static void main(String[] args) {
+        String s = "15133295266_201802";
+        Text text = new Text(s);
+        String s1 = Bytes.toString(text.getBytes());
+        System.out.println(s1);
     }
 }

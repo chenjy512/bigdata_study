@@ -168,7 +168,6 @@ public class MysqlTextOutputFormat extends OutputFormat<Text,Text>{
 
     //定义输出提交对象
     private FileOutputCommitter committer = null;
-
     //获取路径
     private Path getPath(JobContext job){
         String name = job.getConfiguration().get(FileOutputFormat.OUTDIR);

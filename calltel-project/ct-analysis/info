@@ -1,0 +1,6 @@
+分析模块：分析hbase中的数据，使用mr任务进行处理根据指定业务需求将分析后的结果放入mysql中
+
+map读入hbase数据
+reducer按照业务需求分析数据
+tool驱动关联mr
+outformat：指定数据输出格式，也就是位置
