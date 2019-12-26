@@ -1,6 +1,5 @@
-package com.cjy.inputformat.reducer;
+package com.cjy.format.reducer;
 
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 

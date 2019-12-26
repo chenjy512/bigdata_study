@@ -1,16 +1,12 @@
-package com.cjy.inputformat.driver;
+package com.cjy.format.driver;
 
-import com.cjy.inputformat.format.MysqlInputFormat;
-import com.cjy.inputformat.map.MysqlInputFormatMapper;
-import com.cjy.inputformat.reducer.MysqlInputFormatReducer;
-import com.cjy.wc.map.WordcountMapper;
-import com.cjy.wc.reducer.WordcountReducer;
+import com.cjy.format.format.MysqlInputFormat;
+import com.cjy.format.map.MysqlInputFormatMapper;
+import com.cjy.format.reducer.MysqlInputFormatReducer;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;

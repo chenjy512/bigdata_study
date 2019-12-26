@@ -1,4 +1,4 @@
-package com.cjy.inputformat.bean;
+package com.cjy.format.bean;
 
 public class Dept {
 

@@ -1,6 +1,6 @@
-package com.cjy.inputformat.format;
+package com.cjy.format.format;
 
-import com.cjy.inputformat.bean.Dept;
+import com.cjy.format.bean.Dept;
 import com.cjy.util.JDBCUtil;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.*;

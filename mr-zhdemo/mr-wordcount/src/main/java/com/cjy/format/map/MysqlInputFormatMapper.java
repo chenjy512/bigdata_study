@@ -1,4 +1,4 @@
-package com.cjy.inputformat.map;
+package com.cjy.format.map;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
