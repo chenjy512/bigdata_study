@@ -1,7 +1,7 @@
 package com.cjy.util;
 
 
-import com.cjy.inputformat.bean.Dept;
+import com.cjy.format.bean.Dept;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -25,6 +25,28 @@ public class JDBCUtil {
             e.printStackTrace();
         }
         return conn;
+    }
+
+    public static Integer queryCount(){
+        Connection conn = JDBCUtil.getConnection();
+        Integer count = 0;
+        String sql = "SELECT COUNT(*) FROM t_data";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet res = pre.executeQuery();
+            res.next();
+            count = res.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return count;
     }
 
     public static void main(String[] args) {

@@ -16,4 +16,8 @@ public class MysqlInputFormatReducer extends Reducer<Text, Text,Text,Text> {
         }
         context.write(key,val);
     }
+
+    public static void main(String[] args) {
+        System.out.println(1/2);
+    }
 }
