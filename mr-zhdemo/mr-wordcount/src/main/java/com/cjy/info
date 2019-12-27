@@ -1,0 +1,10 @@
+MapReduce------自定义mysql的InputFormat和OutputFormat
+https://blog.csdn.net/luoyunfan6/article/details/100629006
+
+
+
+
+
+异常记录：
+1. Caused by: java.lang.NoSuchMethodException: com.cjy.format.format.MysqlInputFormat$MySqlInputSplit.<init>()
+解决： InputSplit 继承类 需要时 public static class xxx 才行，静态标识
