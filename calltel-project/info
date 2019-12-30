@@ -5,3 +5,20 @@
 打包方式，idea工具打包
 
 2.kafka与flum
+flum将数据传入kafka中供消费者消费数据
+
+3.消费者将kafka中数据取出保存入hbase中，保存数据时同时保存主叫被叫数据，使用hbase协处理器完成，注意需要将协处理器与公共模块打包放入hbaselib 下
+
+4.分析数据，将hbase中数据取出分析后放入mysql中
+redis，jdbc，outformat使用
+
+5.ssm项目搭建，注意需要修改web.xml版本为2.5
+
+
+
+
+
+
+
+注意打包工程时：协处理器需要打包到hbase lib包下，运行的jar所用到的模块一并需要打包
+

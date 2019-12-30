@@ -15,6 +15,7 @@
         <module>ct-consumer-coprocessor</module>
         <module>ct-analysis</module>
         <module>ct-redis-cache</module>
+        <module>ct-ssm-web</module>
     </modules>
 
 
