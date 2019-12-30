@@ -1,4 +1,4 @@
-package com.cjy.format.informat;
+package com.cjy.format2.informat;
 
 import com.cjy.format2.bean.DataBean;
 import com.cjy.util.JDBCUtil;
@@ -29,10 +29,12 @@ import java.util.List;
  * 这里演示一次读取数据，所以简单就是需要这个对象，注意类修饰符不然会报错
  * RecordReaderMysqlData：实际读取数据并写出数据的处理类
  */
-public class MysqlInputFormat2 extends InputFormat<LongWritable, Text> {
+public class MysqlInputFormat3 extends InputFormat<LongWritable, DataBean> {
 
 
-    //输入分割
+    /**
+     * 1. 数据读取：数据范围分割
+     */
     public static class MySqlInputSplit extends InputSplit implements Writable {
 
         private long start;
@@ -90,7 +92,10 @@ public class MysqlInputFormat2 extends InputFormat<LongWritable, Text> {
 
     }
 
-    private class RecordReaderMysqlData extends RecordReader<LongWritable, Text> {
+    /**
+     * 2. 数据读取
+     */
+    private class RecordReaderMysqlData extends RecordReader<LongWritable, DataBean> {
 
         private Connection conn = null;
         private List<DataBean> list = null; //初始化数据，从mysql中读取数据
@@ -99,7 +104,7 @@ public class MysqlInputFormat2 extends InputFormat<LongWritable, Text> {
 
         private MySqlInputSplit split;   //分割器，实际就是保存数据范围
         private LongWritable key = null; //每次写出的key
-        private Text value = null;       //每次写出的v
+        private DataBean value = null;       //每次写出的v
 
         public RecordReaderMysqlData() throws IOException, InterruptedException {
 
@@ -114,13 +119,18 @@ public class MysqlInputFormat2 extends InputFormat<LongWritable, Text> {
         public void initialize(InputSplit split, TaskAttemptContext context) throws IOException, InterruptedException {
             this.split = (MySqlInputSplit)split;
             this.key =  new LongWritable();
-            this.value = new Text();
+            this.value = new DataBean();
         }
 
-        //将数据写出
+        /**
+         * 某个范围数据写出，也就是一个InputSplit 区间，简单就是mysql分页某一页数据
+         * @return
+         * @throws IOException
+         * @throws InterruptedException
+         */
         @Override
         public boolean nextKeyValue() throws IOException, InterruptedException {
-            //初始化数据
+            //1.初始化数据
             if(list == null){
                 conn = JDBCUtil.getConnection();
                 String sql = "SELECT id,dwmc,CODE,VALUE FROM t_data LIMIT "+this.split.getStart() +" , "+this.split.getLength();//分页数据
@@ -143,16 +153,16 @@ public class MysqlInputFormat2 extends InputFormat<LongWritable, Text> {
                 }
             }
 
-            //写出数据
+            //2.写出数据
             if (index < list.size()) {
                 DataBean bean = list.get(index);
                 key.set(split.start+index);  //数据坐标
-                value.set(bean.toString());   //对象字符串 id+"\t"+dwmc + "\t"+ code + "\t" + value;
+//                value.set(bean.toString());   //对象字符串 id+"\t"+dwmc + "\t"+ code + "\t" + value;
+                value = bean;
                 index++;
-                return true;
+                return true; //结果为true将继续下一次执行
             }
-
-            return false;
+            return false;    //结果为false将终止执行
         }
 
         @Override
@@ -161,7 +171,7 @@ public class MysqlInputFormat2 extends InputFormat<LongWritable, Text> {
         }
 
         @Override
-        public Text getCurrentValue() throws IOException, InterruptedException {
+        public DataBean getCurrentValue() throws IOException, InterruptedException {
             return value;
         }
 
@@ -209,7 +219,7 @@ public class MysqlInputFormat2 extends InputFormat<LongWritable, Text> {
     }
 
     @Override
-    public RecordReader<LongWritable, Text> createRecordReader(InputSplit split, TaskAttemptContext context) throws IOException, InterruptedException {
+    public RecordReader<LongWritable, DataBean> createRecordReader(InputSplit split, TaskAttemptContext context) throws IOException, InterruptedException {
         return new RecordReaderMysqlData(split, context);
     }
 }

@@ -1,13 +1,13 @@
-package com.cjy.format.bean;
+package com.cjy.format2.bean;
 
 import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.util.Comparator;
 
-public class DataBean implements Comparator<DataBean>,Writable{
+public class DataBean implements WritableComparable<DataBean>,Writable{
 
     private String id;
     private String dwmc;
@@ -63,24 +63,33 @@ public class DataBean implements Comparator<DataBean>,Writable{
     }
 
 
-    @Override
-    public int compare(DataBean o1, DataBean o2) {
-      if(o1.code.equals(o2.code)){
-          return 0;
-      }else{
-          return 1;
-      }
-    }
+    /**
+     * write -- read ：先进先出
+     * @param out
+     * @throws IOException
+     */
     @Override
     public void write(DataOutput out) throws IOException {
-        out.writeBytes(id);
-        out.writeBytes(dwmc);
-        out.writeBytes(code);
-        out.writeBytes(value);
+        out.writeUTF(id);
+        out.writeUTF(dwmc);
+        out.writeUTF(code);
+        out.writeUTF(value);
     }
 
     @Override
     public void readFields(DataInput in) throws IOException {
-//        this.id = in.readByte()
+        this.id = in.readUTF();
+        this.dwmc = in.readUTF();
+        this.code = in.readUTF();
+        this.value = in.readUTF();
+    }
+
+    @Override
+    public int compareTo(DataBean o) {
+        int res = dwmc.compareTo(o.dwmc);
+        if(res == 0){
+            res = code.compareTo(o.code);
+        }
+        return res;
     }
 }
