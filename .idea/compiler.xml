@@ -16,6 +16,7 @@
         <module name="ctconsumer" />
         <module name="hbase-demo" />
         <module name="hbase-guliwb" />
+        <module name="mr-hbase" />
         <module name="mr-wordcount" />
       </profile>
     </annotationProcessing>
@@ -31,6 +32,7 @@
       <module name="ctconsumer" target="1.7" />
       <module name="hbase-demo" target="1.8" />
       <module name="hbase-guliwb" target="1.8" />
+      <module name="mr-hbase" target="1.8" />
       <module name="mr-wordcount" target="1.8" />
       <module name="mr-zhdemo" target="1.8" />
     </bytecodeTargetLevel>
