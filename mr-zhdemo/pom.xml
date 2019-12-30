@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>mr-wordcount</module>
+        <module>mr-hbase</module>
     </modules>
 
 

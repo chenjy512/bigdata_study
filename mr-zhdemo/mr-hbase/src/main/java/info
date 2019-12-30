@@ -1,0 +1,12 @@
+打包方式：1.idea打包，有可能打出多个jar包
+          2.maven插件打包方式
+
+mr1：由本地文件导入hbase中
+    1.idea中测试
+    2.linux测试 [root@hadoop202 hbase]# java -jar mr-hbase-1.0-SNAPSHOT-jar-with-dependencies.jar /opt/module/datas/fruit.tsv
+    3.hdfs读入 hadoop jar mr-hbase-1.0-SNAPSHOT-jar-with-dependencies.jar /fruit.tsv
+
+
+mr2: 由mysql中导入进hbase中
+
+mr3: 由hbase导入mysql中（导入本地则需要改一下输出位置即可）
