@@ -12,6 +12,9 @@
       <module fileurl="file://$PROJECT_DIR$/calltel-project/ct-redis-cache/ct-redis-cache.iml" filepath="$PROJECT_DIR$/calltel-project/ct-redis-cache/ct-redis-cache.iml" />
       <module fileurl="file://$PROJECT_DIR$/hbase-demo/hbase-demo.iml" filepath="$PROJECT_DIR$/hbase-demo/hbase-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/hbase-guliwb/hbase-guliwb.iml" filepath="$PROJECT_DIR$/hbase-guliwb/hbase-guliwb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mr-zhdemo/mr-hbase/mr-hbase.iml" filepath="$PROJECT_DIR$/mr-zhdemo/mr-hbase/mr-hbase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mr-zhdemo/mr-wordcount/mr-wordcount.iml" filepath="$PROJECT_DIR$/mr-zhdemo/mr-wordcount/mr-wordcount.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mr-zhdemo/mr-zhdemo.iml" filepath="$PROJECT_DIR$/mr-zhdemo/mr-zhdemo.iml" />
     </modules>
   </component>
 </project>
