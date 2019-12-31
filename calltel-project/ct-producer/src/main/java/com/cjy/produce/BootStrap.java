@@ -15,10 +15,10 @@ public class BootStrap {
         LocalFileProducer producer = new LocalFileProducer();
 //        producer.setDataIn(new LocalFileDataIn("/Users/chenjunying/Downloads/contact.log"));
 //        producer.setDataOut(new LocalFileDataOut("/Users/chenjunying/Downloads/calllog.log"));
-        producer.setDataIn(new LocalFileDataIn("D:\\temp\\contact.log"));
-        producer.setDataOut(new LocalFileDataOut("D:\\temp\\calllog.log"));
-//        producer.setDataIn(new LocalFileDataIn(args[0]));
-//        producer.setDataOut(new LocalFileDataOut(args[1]));
+//        producer.setDataIn(new LocalFileDataIn("D:\\temp\\contact.log"));
+//        producer.setDataOut(new LocalFileDataOut("D:\\temp\\calllog.log"));
+        producer.setDataIn(new LocalFileDataIn(args[0]));
+        producer.setDataOut(new LocalFileDataOut(args[1]));
         producer.produce();
 
     }

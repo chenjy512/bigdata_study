@@ -15,7 +15,7 @@ public class RedisCliUtil {
         if(jedis ==null ){
             synchronized (Object.class){
                 if(jedis == null)
-                 jedis = new Jedis("hadoop101", 6379);
+                 jedis = new Jedis("hadoop201", 6379);
                 jedis.auth("redis");
             }
         }
