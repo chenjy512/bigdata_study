@@ -15,6 +15,7 @@
       <module fileurl="file://$PROJECT_DIR$/hbase-guliwb/hbase-guliwb.iml" filepath="$PROJECT_DIR$/hbase-guliwb/hbase-guliwb.iml" />
       <module fileurl="file://$PROJECT_DIR$/hdfs-clientAPI/hdfs-clientAPI.iml" filepath="$PROJECT_DIR$/hdfs-clientAPI/hdfs-clientAPI.iml" />
       <module fileurl="file://$PROJECT_DIR$/mr-zhdemo/mr-hbase/mr-hbase.iml" filepath="$PROJECT_DIR$/mr-zhdemo/mr-hbase/mr-hbase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mr-zhdemo/mr-study/mr-study.iml" filepath="$PROJECT_DIR$/mr-zhdemo/mr-study/mr-study.iml" />
       <module fileurl="file://$PROJECT_DIR$/mr-zhdemo/mr-wordcount/mr-wordcount.iml" filepath="$PROJECT_DIR$/mr-zhdemo/mr-wordcount/mr-wordcount.iml" />
       <module fileurl="file://$PROJECT_DIR$/mr-zhdemo/mr-zhdemo.iml" filepath="$PROJECT_DIR$/mr-zhdemo/mr-zhdemo.iml" />
     </modules>
