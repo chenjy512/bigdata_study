@@ -33,11 +33,11 @@ public class WordcountDriver {
         job.setOutputValueClass(IntWritable.class);
 
 //        // 6 设置输入和输出路径
-        FileInputFormat.setInputPaths(job, new Path(args[0]));
-        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+//        FileInputFormat.setInputPaths(job, new Path(args[0]));
+//        FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-//        FileInputFormat.setInputPaths(job, new Path("/Users/chenjunying/Downloads/wd.txt"));
-//        FileOutputFormat.setOutputPath(job, new Path("/Users/chenjunying/Downloads/out/"));
+        FileInputFormat.setInputPaths(job, new Path("/Users/chenjunying/Downloads/wd.txt"));
+        FileOutputFormat.setOutputPath(job, new Path("/Users/chenjunying/Downloads/out/"));
 
         // 7 提交
         boolean result = job.waitForCompletion(true);
