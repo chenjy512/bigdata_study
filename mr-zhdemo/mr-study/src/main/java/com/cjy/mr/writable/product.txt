@@ -1,0 +1,4 @@
+zhangsan	A1	10	56
+zhangsan	A2	5	33
+zhangsan	A1	10	56
+lisi	A1	10	76
