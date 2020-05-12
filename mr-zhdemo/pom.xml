@@ -11,7 +11,16 @@
     <modules>
         <module>mr-wordcount</module>
         <module>mr-hbase</module>
+        <module>mr-study</module>
     </modules>
 
 
+    <dependencyManagement>
+    <dependencies>
+
+
+
+    </dependencies>
+
+    </dependencyManagement>
 </project>

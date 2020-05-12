@@ -1,0 +1,3 @@
+java	java	hello	scala	java
+baidu	alib	meituan	scala	baidu
+alib	java	scala	java	alib

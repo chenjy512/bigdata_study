@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/calltel-project/ct-ssm-web" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
@@ -8,6 +11,8 @@
         <option value="$PROJECT_DIR$/calltel-project/pom.xml" />
         <option value="$PROJECT_DIR$/calltel-project/ct-common/pom.xml" />
         <option value="$PROJECT_DIR$/mr-zhdemo/pom.xml" />
+        <option value="$PROJECT_DIR$/hdfs-clientAPI/pom.xml" />
+
       </list>
     </option>
   </component>
