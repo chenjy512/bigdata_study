@@ -17,6 +17,7 @@ public class WordcountDriver {
         Configuration configuration = new Configuration();
         Job job = Job.getInstance(configuration);
 
+        job.setNumReduceTasks(2);
         // 2 设置jar加载路径
         job.setJarByClass(WordcountDriver.class);
 
