@@ -13,7 +13,6 @@
         <module name="ct-producer" />
         <module name="ct-redis-cache" />
         <module name="ct-ssm-web" />
-        <module name="ctconsumer" />
         <module name="hbase-demo" />
         <module name="hbase-guliwb" />
         <module name="hdfs-clientAPI" />
@@ -23,22 +22,21 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="calltel-project" target="1.8" />
-      <module name="ct-analysis" target="1.8" />
-      <module name="ct-common" target="1.8" />
-      <module name="ct-consumer" target="1.8" />
-      <module name="ct-consumer-coprocessor" target="1.8" />
-      <module name="ct-producer" target="1.8" />
-      <module name="ct-redis-cache" target="1.8" />
-      <module name="ct-ssm-web" target="1.8" />
-      <module name="ctconsumer" target="1.7" />
-      <module name="hbase-demo" target="1.8" />
-      <module name="hbase-guliwb" target="1.8" />
-      <module name="hdfs-clientAPI" target="1.8" />
+      <module name="calltel-project" target="1.7" />
+      <module name="ct-analysis" target="1.7" />
+      <module name="ct-common" target="1.7" />
+      <module name="ct-consumer" target="1.7" />
+      <module name="ct-consumer-coprocessor" target="1.7" />
+      <module name="ct-producer" target="1.7" />
+      <module name="ct-redis-cache" target="1.7" />
+      <module name="ct-ssm-web" target="1.7" />
+      <module name="hbase-demo" target="1.7" />
+      <module name="hbase-guliwb" target="1.7" />
+      <module name="hdfs-clientAPI" target="1.7" />
       <module name="mr-hbase" target="1.8" />
       <module name="mr-study" target="1.8" />
       <module name="mr-wordcount" target="1.8" />
-      <module name="mr-zhdemo" target="1.8" />
+      <module name="mr-zhdemo" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

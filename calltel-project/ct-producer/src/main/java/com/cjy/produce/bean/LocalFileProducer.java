@@ -60,6 +60,9 @@ public class LocalFileProducer implements Producer {
                  // 生成随机的通话时长
                  String duration = NumberUtil.format(new Random().nextInt(3000), 4);
 
+                 //日期处理
+//                 long time = DateUtil.parse(callTimeString, "yyyyMMddHHmmss").getTime();
+//                 callTimeString = DateUtil.format(new Date(time), "yyyyMMddHHmmss");
                  // 生成通话记录
                  Calllog log = new Calllog(call1.getTel(), call2.getTel(), callTimeString, duration);
 
@@ -97,4 +100,11 @@ public class LocalFileProducer implements Producer {
         }
     }
 
+    public static void main(String[] args) {
+        String s = "20180431";
+        long time = DateUtil.parse(s, "yyyyMMdd").getTime();
+        System.out.println(time);
+        String callTimeString = DateUtil.format(new Date(time), "yyyyMMddHHmmss");
+        System.out.println(callTimeString);
+    }
 }

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/bigdata_study.iml" filepath="$PROJECT_DIR$/.idea/bigdata_study.iml" />
       <module fileurl="file://$PROJECT_DIR$/calltel-project/calltel-project.iml" filepath="$PROJECT_DIR$/calltel-project/calltel-project.iml" />
       <module fileurl="file://$PROJECT_DIR$/calltel-project/ct-analysis/ct-analysis.iml" filepath="$PROJECT_DIR$/calltel-project/ct-analysis/ct-analysis.iml" />
       <module fileurl="file://$PROJECT_DIR$/calltel-project/ct-common/ct-common.iml" filepath="$PROJECT_DIR$/calltel-project/ct-common/ct-common.iml" />

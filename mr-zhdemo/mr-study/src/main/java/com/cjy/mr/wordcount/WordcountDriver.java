@@ -37,8 +37,8 @@ public class WordcountDriver {
 //        FileInputFormat.setInputPaths(job, new Path(args[0]));
 //        FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-        FileInputFormat.setInputPaths(job, new Path("/Users/chenjunying/Downloads/wd.txt"));
-        FileOutputFormat.setOutputPath(job, new Path("/Users/chenjunying/Downloads/out/"));
+        FileInputFormat.setInputPaths(job, new Path("D:/input/c2.txt"));
+        FileOutputFormat.setOutputPath(job, new Path("d:/wcoutput1/"));
 
         // 7 提交
         boolean result = job.waitForCompletion(true);
