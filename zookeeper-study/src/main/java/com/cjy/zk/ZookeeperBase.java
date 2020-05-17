@@ -83,7 +83,7 @@ public class ZookeeperBase implements Watcher {
                 processNodeChildrenChanged(watchedEvent);
 
 
-                //为了测试子节点下的数据持续变化，二次开启监听
+           /*     //为了测试子节点下的数据持续变化，二次开启监听
                 try {
                     List<String> children = zkClient.getChildren("/test", true);
                     System.out.println(children);
@@ -91,7 +91,7 @@ public class ZookeeperBase implements Watcher {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
+                }*/
             }
         }
 
