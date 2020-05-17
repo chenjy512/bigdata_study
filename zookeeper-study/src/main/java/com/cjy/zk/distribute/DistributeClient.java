@@ -3,20 +3,22 @@ package com.cjy.zk.distribute;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.cjy.zk.constants.Constants;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 
 public class DistributeClient {
 
-    private static String connectString = "hadoop102:2181,hadoop103:2181,hadoop104:2181";
+    private String url = Constants.URL;
     private static int sessionTimeout = 2000;
     private ZooKeeper zk = null;
     private String parentNode = "/servers";
 
     // 创建到zk的客户端连接
     public void getConnect() throws IOException {
-        zk = new ZooKeeper(connectString, sessionTimeout, new Watcher() {
+        zk = new ZooKeeper(url, sessionTimeout, new Watcher() {
 
             @Override
             public void process(WatchedEvent event) {

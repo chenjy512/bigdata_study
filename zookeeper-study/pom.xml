@@ -43,7 +43,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.cjy.zk.distribute.DistributeServer</mainClass> //默认的主程序入口
+                                    <mainClass>com.cjy.zk.distribute.DistributeServer</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
