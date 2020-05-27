@@ -1,0 +1,2 @@
+{"uid":"001","name":"张三","products":[{"pname":"iphone","price":"10101","detail":{"address":"meiguo","color":"red","size":"5.7"}},{"pname":"xiaomi","price":"4300","detail":{"address":"xiaomi","color":"blue","size":"6.0"}}]}
+{"uid":"002","name":"李四","products":[{"pname":"sanx","price":"7800","detail":{"address":"sanx","color":"white","size":"6.0"}},{"pname":"onePlus","price":"5999","detail":{"address":"onePlus","color":"black","size":"6.0"}},{"pname":"vivo","price":"4900","detail":{"onePlus":"vivo","color":"white","size":"5.8"}}]}
