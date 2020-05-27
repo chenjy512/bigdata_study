@@ -3,6 +3,7 @@ package com.cjy.zk.distribute;
 import java.io.IOException;
 
 import com.cjy.zk.constants.Constants;
+import com.cjy.zk.api.Constant;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
@@ -12,6 +13,7 @@ import org.apache.zookeeper.ZooDefs.Ids;
 public class DistributeServer {
 
     private String url = Constants.URL;
+    private static String connectString = Constant.URL;
     private static int sessionTimeout = 2000;
     private ZooKeeper zk = null;
     private String parentNode = "/servers";
@@ -30,9 +32,8 @@ public class DistributeServer {
 
     // 注册服务器
     public void registServer(String hostname) throws Exception{
-
+        //EPHEMERAL_SEQUENTIAL ： 创建临时顺序节点
         String create = zk.create(parentNode + "/server", hostname.getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
-
         System.out.println(hostname +" is online "+ create);
     }
 
@@ -49,12 +50,10 @@ public class DistributeServer {
         DistributeServer server = new DistributeServer();
         server.getConnect();
 
-//        args=new String[2];
-//        args[0]="hadoop102";
-
+        args=new String[2];
+        args[0]="hadoop203";
         // 2 利用zk连接注册服务器信息
         server.registServer(args[0]);
-
         // 3 启动业务功能
         server.business(args[0]);
     }

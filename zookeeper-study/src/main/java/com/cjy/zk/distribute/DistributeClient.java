@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cjy.zk.constants.Constants;
+import com.cjy.zk.api.Constant;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
@@ -12,17 +13,18 @@ import org.apache.zookeeper.ZooKeeper;
 public class DistributeClient {
 
     private String url = Constants.URL;
+    private static String connectString = Constant.URL;
     private static int sessionTimeout = 2000;
     private ZooKeeper zk = null;
     private String parentNode = "/servers";
 
     // 创建到zk的客户端连接
     public void getConnect() throws IOException {
-        zk = new ZooKeeper(url, sessionTimeout, new Watcher() {
+//        zk = new ZooKeeper(url, sessionTimeout, new Watcher() {
 
+        zk = new ZooKeeper(connectString, sessionTimeout, new Watcher() {
             @Override
             public void process(WatchedEvent event) {
-
                 // 再次启动监听
                 try {
                     getServerList();
@@ -31,8 +33,7 @@ public class DistributeClient {
                 }
             }
         });
-    }
-
+     }
     // 获取服务器列表信息
     public void getServerList() throws Exception {
 
@@ -48,7 +49,6 @@ public class DistributeClient {
 
             servers.add(new String(data));
         }
-
         // 4打印服务器列表信息
         System.out.println(servers);
     }
