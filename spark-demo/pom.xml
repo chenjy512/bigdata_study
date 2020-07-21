@@ -21,11 +21,17 @@
             <artifactId>spark-core_2.11</artifactId>
             <version>2.1.1</version>
         </dependency>
-        <!-- 添加scala的依赖 -->
+        <!-- 添加scala的依赖
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>${scala.version}</version>
+        </dependency> -->
+        <!--mysql 依赖-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.15</version>
         </dependency>
     </dependencies>
 
