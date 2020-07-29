@@ -44,3 +44,21 @@ case class CategoryCountInfo(categoryId: String,
                              clickCount: Long,
                              orderCount: Long,
                              payCount: Long)
+
+/**
+  * 需求二
+  * @param categoryId 品类id
+  * @param sessionId
+  * @param clickCount 点击次数
+  */
+case class CategorySession(categoryId: String,
+                           sessionId: String,
+                           clickCount: Long) extends Comparable[CategorySession]{
+  override def compareTo(o: CategorySession): Int = {
+    if(this.clickCount <= o.clickCount){
+      1
+    }else{
+      -1
+    }
+  }
+}

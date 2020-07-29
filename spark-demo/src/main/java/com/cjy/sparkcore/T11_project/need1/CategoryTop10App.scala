@@ -1,5 +1,6 @@
-package com.cjy.sparkcore.T11_project
+package com.cjy.sparkcore.T11_project.need1
 
+import com.cjy.sparkcore.T11_project.{CategoryCountInfo, UserVisitAction}
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 
@@ -8,7 +9,7 @@ import scala.collection.mutable
 /**
   * 需求实现函数
   */
-object LogNeedsApp {
+object CategoryTop10App {
 
 
   /**
