@@ -1,5 +1,7 @@
 package com.cjy.sparkcore.T11_project
-
+import com.cjy.sparkcore.T11_project.need1.CategoryTop10App
+import com.cjy.sparkcore.T11_project.need2.{CategorySessionApp, CategorySessionApp2, CategorySessionApp3}
+import com.cjy.sparkcore.T11_project.need3.PageConversionApp
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -10,6 +12,7 @@ object LogProjectApp {
     val conf: SparkConf = new SparkConf().setMaster("local[*]").setAppName("log-deal")
     val sc:SparkContext = new SparkContext(conf)
     //1. 读取文件
+    //    val textRDD: RDD[String] = sc.textFile("D:\\baidunyunDownLoad\\data\\")
     val textRDD: RDD[String] = sc.textFile("/Users/chenjunying/Downloads/user_data.txt")
     //    println(textRDD.collect().length)
     //2. 数据类型转换
@@ -30,11 +33,18 @@ object LogProjectApp {
         splits(11),
         splits(12).toLong)
     })
-    //每个品类订单前十名
-    val topData: List[CategoryCountInfo] = LogNeedsApp.dealNeedCategorTop10(sc,mapRDD)
+
+    val topData: List[CategoryCountInfo] = CategoryTop10App.dealNeedCategorTop10(sc,mapRDD)
     for (elem <- topData) {
       println(elem)
     }
+
+    println("-------------需求实现二----------")
+
+    //     CategorySessionApp.queryCategorySessionTop10(sc,mapRDD,topData)
+    //     CategorySessionApp2.queryCategorySessionTop10(sc,mapRDD,topData)
+    //     CategorySessionApp3.queryCategorySessionTop10(sc,mapRDD,topData)
+    PageConversionApp.calcPageConversion(sc,mapRDD,"1,2,3,4,5,6")
   }
 
 

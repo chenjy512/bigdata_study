@@ -13,8 +13,9 @@ object T4_hiveLoadData {
       .getOrCreate()
 
     import spark.implicits._
+    import spark.sql
 
-    spark.sql("show databases").show
+    sql("show databases").show
 
     spark.close()
   }
