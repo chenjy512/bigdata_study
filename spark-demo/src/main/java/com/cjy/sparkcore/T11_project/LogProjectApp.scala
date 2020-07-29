@@ -10,7 +10,7 @@ object LogProjectApp {
     val conf: SparkConf = new SparkConf().setMaster("local[*]").setAppName("log-deal")
     val sc:SparkContext = new SparkContext(conf)
     //1. 读取文件
-    val textRDD: RDD[String] = sc.textFile("D:\\baidunyunDownLoad\\data\\")
+    val textRDD: RDD[String] = sc.textFile("/Users/chenjunying/Downloads/user_data.txt")
     //    println(textRDD.collect().length)
     //2. 数据类型转换
     val mapRDD: RDD[UserVisitAction] = textRDD.map(x => {
@@ -30,7 +30,7 @@ object LogProjectApp {
         splits(11),
         splits(12).toLong)
     })
-
+    //每个品类订单前十名
     val topData: List[CategoryCountInfo] = LogNeedsApp.dealNeedCategorTop10(sc,mapRDD)
     for (elem <- topData) {
       println(elem)

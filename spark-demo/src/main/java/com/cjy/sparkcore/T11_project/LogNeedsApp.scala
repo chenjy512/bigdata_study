@@ -38,10 +38,10 @@ object LogNeedsApp {
     val datasMap: mutable.Map[(String, String), Long] = acc.value
 
     //5. 根据品类id进行分组
-    val sortMap: Map[String, mutable.Map[(String, String), Long]] = datasMap.groupBy(x => x._1._1)
+    val groupMap: Map[String, mutable.Map[(String, String), Long]] = datasMap.groupBy(x => x._1._1)
 
-    //6. 装换数据格式
-    val categoryCountInfoList: List[CategoryCountInfo] = sortMap.map {
+    //6. 转换数据格式
+    val categoryCountInfoList: List[CategoryCountInfo] = groupMap.map {
       case (cid, acctionMap) => CategoryCountInfo(cid, acctionMap.getOrElse((cid, "click"), 0)
         , acctionMap.getOrElse((cid, "order"), 0)
         , acctionMap.getOrElse((cid, "pay"), 0))
@@ -56,6 +56,8 @@ object LogNeedsApp {
     val topData: List[CategoryCountInfo] = infoes.take(10)
     topData
   }
+
+
 
 
 }
