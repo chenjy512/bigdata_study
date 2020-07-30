@@ -19,7 +19,7 @@ object T4_hiveLoadData {
     val df: DataFrame = sql("show databases")
     df.show()
     //hive 计算结果保存，能保存到本地，也就能保存到mysql 等。。。
-    df.write.format("json").mode(SaveMode.Overwrite).save("spark-demo/hive")
+//    df.write.format("json").mode(SaveMode.Overwrite).save("spark-demo/hive")
     spark.close()
   }
 }
