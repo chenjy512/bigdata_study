@@ -14,7 +14,7 @@ object T3_KafkaDStream1 {
     val ssc = new StreamingContext(conf,Seconds(5))
 
     //kafka 地址，消费者组
-    val param: Map[String, String] = Map[String, String]("bootstrap.servers" -> "hadoop202:9092,hadoop203:9092,hadoop204:9092"
+    val param: Map[String, String] = Map[String, String]("bootstrap.servers" -> "hadoop102:9092,hadoop103:9092,hadoop104:9092"
       , "group.id" -> "ccl")
     //创建dstream，参数介绍：ds-ccl 被消费主题
     val dstream: InputDStream[(String, String)] = KafkaUtils.
