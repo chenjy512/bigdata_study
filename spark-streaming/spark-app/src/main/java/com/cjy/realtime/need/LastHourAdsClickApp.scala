@@ -40,13 +40,12 @@ object LastHourAdsClickApp {
     jsonDS.foreachRDD(rdd =>{
 
       val result: Array[(String, String)] = rdd.collect
-
+      //数组转为map
       import collection.JavaConversions._
       val client: Jedis = RedisUtil.getClient
+      //按照一个kv是一个属性来存放数据
       client.hmset("last_hour_ads_click", result.toMap)
       client.close()
     })
-
-
   }
 }
